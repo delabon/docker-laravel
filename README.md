@@ -1,9 +1,9 @@
-## Docker for Laravel 10.+
+## Docker for Laravel 11.+
 
 ### Add domain to /etc/hosts (host)
 
 ```bash
-sudo vi /etc/hosts
+sudo nano /etc/hosts
 127.0.0.111  laravel.test
 ```
 
@@ -27,22 +27,18 @@ docker-compose up --build -d
 ### Connect to container bash (host)
 
 ```bash
-docker exec -it container_id bash
+docker exec -it php-container bash
 ```
 
 ### Install laravel (php-container)
 
 ```bash
-git config --global user.email "example@example.com"
-git config --global user.name "John Doe"
-
-composer create-project laravel/laravel example-app
+composer create-project laravel/laravel .
 ```
 
 ### npm install / watch / install package (host)
 
 ```bash
-docker-compose run node-service npm install
-docker-compose run node-service npm i bootstrap --save-dev
-docker-compose run node-service npm run watch
+docker-compose run --rm node-service npm install
+docker-compose run --rm node-service npm run watch
 ```
