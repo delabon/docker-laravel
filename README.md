@@ -6,6 +6,11 @@
 sudo nano /etc/hosts
 127.0.0.111  laravel.test
 ```
+### Create app folder inside the root folder
+
+```bash
+mkdir app
+```
 
 ### Install mkcert (host)
 
