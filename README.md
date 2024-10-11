@@ -1,49 +1,30 @@
 ## Docker for Laravel 11.+
 
-### Add domain to /etc/hosts (host)
+### Up containers
 
 ```bash
-sudo nano /etc/hosts
-127.0.0.111  laravel.test
-```
-### Create app folder inside the root folder
-
-```bash
-mkdir app
+docker compose up --build -d
 ```
 
-### Install mkcert (host)
-
-```bash
-sudo apt install libnss3-tools
-curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
-chmod +x mkcert-v*-linux-amd64
-sudo mv mkcert-v*-linux-amd64 /usr/local/bin/mkcert
-cd config/ssls/
-mkcert -install laravel.test
-```
-
-### Up containers (host)
-
-```bash
-docker-compose up --build -d
-```
-
-### Connect to container bash (host)
-
-```bash
-docker exec -it php-container bash
-```
-
-### Install laravel (php-container)
+### Run the following
 
 ```bash
 composer create-project laravel/laravel .
 ```
 
-### npm install / watch / install package (host)
+### Build assets
 
 ```bash
-docker-compose run --rm node-service npm install
-docker-compose run --rm node-service npm run watch
+docker compose run --rm node-service npm install
+docker compose run --rm node-service npm run build
 ```
+
+### Run PHPUnit tests
+
+```bash
+docker compose exec php-service vendor/bin/phpunit --testsuite=Unit
+docker compose exec php-service vendor/bin/phpunit --testsuite=Integration
+docker compose exec php-service vendor/bin/phpunit --testsuite=Feature
+```
+
+Open http://localhost:8022/ in your browser.
